@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.commands.cmdHolonomicDrive;
+
 // import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -39,7 +41,7 @@ public abstract class HolonomicDriveTrain extends DriveTrain {
 
   @Override
   protected void initDefaultCommand() {
-    // setDefaultCommand(new HolonomicDriveCommand(this));
+    setDefaultCommand(new cmdHolonomicDrive(this));
     // Make command
   }
 
@@ -48,7 +50,18 @@ public abstract class HolonomicDriveTrain extends DriveTrain {
   }
 
   public void setAdjustmentAngle(double adjustmentAngle) {
-    // System.out.printf
-    // Print out angle
+    System.out.printf("New adjustment Angle: % .3f\n", adjustmentAngle);
+    // Prints out adjustment angle. The % shows the rules, the angle is going to 3
+    // decimal places
+  }
+
+  public void setFieldOriented(boolean fieldOriented) {
+    mFieldOriented = fieldOriented;
+  }
+
+  public abstract void stopDriveMotors();
+
+  public void zeroGyro() {
+    setAdjustmentAngle(getRawGyroAngle());
   }
 }

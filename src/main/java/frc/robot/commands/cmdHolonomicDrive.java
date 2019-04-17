@@ -8,21 +8,44 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
+import frc.robot.subsystems.HolonomicDriveTrain;
 
 public class cmdHolonomicDrive extends Command {
-  public cmdHolonomicDrive() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  private final HolonomicDriveTrain mDrivetrain;
+
+  public cmdHolonomicDrive(HolonomicDriveTrain drivetrain) {
+    mDrivetrain = drivetrain;
+
+    requires(drivetrain);
   }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
+  private double deadband(double input) {
+    if (Math.abs(input) < 0.05)
+      return 0;
+    return input;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    double forward = Robot.oi.xboxDriver
+
+    forward *= Math.abs(forward);
+		strafe *= Math.abs(strafe);
+		rotation *= Math.abs(rotation);
+
+		forward = deadband(forward);
+		strafe = deadband(strafe);
+		rotation = deadband(rotation);
+
+		SmartDashboard.putNumber("Forward", forward);
+		SmartDashboard.putNumber("Strafe", strafe);
+		SmartDashboard.putNumber("Rotation", rotation);
+
+		mDrivetrain.holonomicDrive(forward, strafe, rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()
