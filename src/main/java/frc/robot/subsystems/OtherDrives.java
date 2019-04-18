@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.cmdTankDriveXbox;
 
@@ -22,20 +24,21 @@ public class OtherDrives extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public Spark backLeftMotor = new Spark(RobotMap.backLeftMotor);
-  public Spark backRightMotor = new Spark(RobotMap.backRightMotor);
-  public Spark frontLeftMotor = new Spark(RobotMap.frontLeftMotor);
-  public Spark frontRightMotor = new Spark(RobotMap.frontRightMotor);
+  public Spark leftMotor = new Spark(RobotMap.leftMotor);
+  public Spark rightMotor = new Spark(RobotMap.rightMotor);
+  // public Spark frontLeftMotor = new Spark(RobotMap.frontLeftMotor);
+  // public Spark frontRightMotor = new Spark(RobotMap.frontRightMotor);
   SpeedControllerGroup leftMotors;
   SpeedControllerGroup rightMotors;
+  DifferentialDrive driveControl;
 
   public OtherDrives() {
-    backLeftMotor.setInverted(true);
-    backRightMotor.setInverted(true);
-    frontLeftMotor.setInverted(true);
-    frontRightMotor.setInverted(true);
-    leftMotors = new SpeedControllerGroup(backLeftMotor, frontLeftMotor);
-    rightMotors = new SpeedControllerGroup(backRightMotor, frontRightMotor);
+    leftMotor.setInverted(true);
+    rightMotor.setInverted(true);
+    // frontLeftMotor.setInverted(true);
+    // frontRightMotor.setInverted(true);
+    // leftMotors = new SpeedControllerGroup(backLeftMotor, frontLeftMotor);
+    // rightMotors = new SpeedControllerGroup(backRightMotor, frontRightMotor);
   }
 
   @Override
@@ -44,10 +47,16 @@ public class OtherDrives extends Subsystem {
     setDefaultCommand(new cmdTankDriveXbox());
   }
 
-  public void TankDrive() {
+  public void tankDrive() {
 
     double left = Robot.oi.xboxDriver.getRawAxis(1);
     double right = Robot.oi.xboxDriver.getRawAxis(5);
     driveControl.tankDrive(left, right);
+  }
+
+  public void curvatureDrive() {
+    double throttle = Robot.oi.xboxDriver.getRawAxis(1);
+    double turn = Robot.oi.xboxDriver.getRawAxis(4);
+    driveControl.curvatureDrive(1.0, 0, true);
   }
 }

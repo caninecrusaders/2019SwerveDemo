@@ -31,21 +31,25 @@ public class cmdHolonomicDrive extends Command {
   @Override
   protected void execute() {
 
-    double forward = Robot.oi.xboxDriver
+    // double forward = Robot.oi.xboxDriver.
+    // left y value
+    // double strafe = Robot.oi.xboxDriver.
+    // left x value
+    // double rotation = Robot.oi.xboxDriver
 
-    forward *= Math.abs(forward);
-		strafe *= Math.abs(strafe);
-		rotation *= Math.abs(rotation);
+    // forward *= Math.abs(forward);
+    // strafe *= Math.abs(strafe);
+    // rotation *= Math.abs(rotation);
 
-		forward = deadband(forward);
-		strafe = deadband(strafe);
-		rotation = deadband(rotation);
+    // forward = deadband(forward);
+    // strafe = deadband(strafe);
+    // rotation = deadband(rotation);
 
-		SmartDashboard.putNumber("Forward", forward);
-		SmartDashboard.putNumber("Strafe", strafe);
-		SmartDashboard.putNumber("Rotation", rotation);
+    // SmartDashboard.putNumber("Forward", forward);
+    // SmartDashboard.putNumber("Strafe", strafe);
+    // SmartDashboard.putNumber("Rotation", rotation);
 
-		mDrivetrain.holonomicDrive(forward, strafe, rotation);
+    // mDrivetrain.holonomicDrive(forward, strafe, rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()
